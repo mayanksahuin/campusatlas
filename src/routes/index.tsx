@@ -1,10 +1,12 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import hero from "@/assets/hero-jaipur.jpg";
 import { SiteShell, CollegeRow } from "@/components/site";
-import { colleges } from "@/lib/colleges";
+import { collegesQuery } from "@/lib/colleges.functions";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(collegesQuery()),
   head: () => ({
     meta: [
       { title: "CampusAtlas — Jaipur's Engineering Colleges. Decoded." },
@@ -22,6 +24,7 @@ const popular = ["Sitapura colleges", "JEE Main admission", "Hostel facilities",
 function Home() {
   const [q, setQ] = useState("");
   const navigate = useNavigate();
+  const { data: colleges } = useSuspenseQuery(collegesQuery());
   const featured = colleges.filter((c) => c.verification !== "pending");
   return (
     <SiteShell>

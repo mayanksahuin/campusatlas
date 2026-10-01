@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteShell, CollegeRow } from "@/components/site";
-import { colleges } from "@/lib/colleges";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { collegesQuery } from "@/lib/colleges.functions";
 
 type Search = { q?: string | undefined; type?: string | undefined };
 
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/colleges/")({
     q: typeof s["q"] === "string" ? s["q"] : undefined,
     type: typeof s["type"] === "string" ? s["type"] : undefined,
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(collegesQuery()),
   head: () => ({
     meta: [
       { title: "Explore Engineering Colleges in Jaipur — CampusAtlas" },
@@ -25,6 +27,7 @@ const types = ["All", "Institute of National Importance", "Private University", 
 
 function Explore() {
   const search = Route.useSearch();
+  const { data: colleges } = useSuspenseQuery(collegesQuery());
   const [q, setQ] = useState(search.q ?? "");
   const [type, setType] = useState(search.type ?? "All");
   const [sort, setSort] = useState<"az" | "est">("az");
@@ -32,9 +35,9 @@ function Explore() {
     const t = q.toLowerCase();
     return colleges
       .filter((c) => type === "All" || c.type === type)
-      .filter((c) => !t || [c.name, c.area, ...(c.aliases ?? []), ...(c.programs ?? []), ...(c.entrance ?? [])].join(" ").toLowerCase().includes(t))
+      .filter((c) => !t || [c.name, c.area ?? "", ...c.aliases, ...c.programs, ...c.entrance].join(" ").toLowerCase().includes(t))
       .sort((a, b) => (sort === "az" ? a.name.localeCompare(b.name) : (a.established ?? 9999) - (b.established ?? 9999)));
-  }, [q, type, sort]);
+  }, [colleges, q, type, sort]);
 
   return (
     <SiteShell>

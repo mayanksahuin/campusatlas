@@ -53,10 +53,10 @@ export function CollegeRow({ c }: { c: College }) {
     <Link to="/colleges/$slug" params={{ slug: c.slug }} className="group grid grid-cols-12 items-center gap-4 border-b py-5 transition-colors hover:bg-muted/60">
       <div className="col-span-12 md:col-span-6">
         <h3 className="font-display text-xl group-hover:text-primary">{c.name}</h3>
-        {c.aliases && <p className="text-xs text-muted-foreground">{c.aliases.join(" · ")}</p>}
+        {c.aliases.length > 0 && <p className="text-xs text-muted-foreground">{c.aliases.join(" · ")}</p>}
       </div>
       <p className="col-span-6 text-sm text-muted-foreground md:col-span-3">{c.type}</p>
-      <p className="col-span-6 text-sm md:col-span-2">{c.area}</p>
+      <p className="col-span-6 text-sm md:col-span-2">{c.area ?? <span className="text-muted-foreground">Location pending</span>}</p>
       <div className="col-span-12 md:col-span-1 md:text-right"><VerificationBadge status={c.verification} /></div>
     </Link>
   );

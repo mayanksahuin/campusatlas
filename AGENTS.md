@@ -10,5 +10,5 @@
 <!-- LOVABLE:END -->
 
 ## Architecture
-- College seed data lives in `src/lib/colleges.ts` as a typed static list until Lovable Cloud is enabled — single source for all public pages.
+- College data lives in Lovable Cloud; pages read it via public server functions + query options in `src/lib/colleges.functions.ts` (types in `colleges.ts`). Writes are server-only until Admin/auth exists — no public write endpoints.
 - Shared header/footer is `SiteShell` in `src/components/site.tsx`, wrapped per route.
