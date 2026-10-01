@@ -3,12 +3,12 @@ export type Verification = "verified" | "partial" | "pending";
 export interface College {
   slug: string;
   name: string;
-  aliases?: string[];
+  aliases?: string[] | undefined;
   type: "Institute of National Importance" | "Private University" | "Deemed University" | "Affiliated College";
   ownership: "Government" | "Private";
   area: string;
   established?: number;
-  affiliation?: string;
+  affiliation?: string | undefined;
   website?: string;
   entrance?: string[];
   programs?: string[];

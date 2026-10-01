@@ -4,7 +4,7 @@ import { SiteShell, VerificationBadge } from "@/components/site";
 import { colleges, getCollege } from "@/lib/colleges";
 
 export const Route = createFileRoute("/compare")({
-  validateSearch: (s: Record<string, unknown>): { a?: string | undefined } => ({ a: typeof s.a === "string" ? s.a : undefined }),
+  validateSearch: (s: Record<string, unknown>): { a?: string | undefined } => ({ a: typeof s["a"] === "string" ? s["a"] : undefined }),
   head: () => ({
     meta: [
       { title: "Compare Jaipur Engineering Colleges — CampusAtlas" },

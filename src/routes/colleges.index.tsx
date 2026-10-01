@@ -7,8 +7,8 @@ type Search = { q?: string | undefined; type?: string | undefined };
 
 export const Route = createFileRoute("/colleges/")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: typeof s.q === "string" ? s.q : undefined,
-    type: typeof s.type === "string" ? s.type : undefined,
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
+    type: typeof s["type"] === "string" ? s["type"] : undefined,
   }),
   head: () => ({
     meta: [
