@@ -58,7 +58,7 @@ function Home() {
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="flex items-end justify-between rule-top pt-6">
-          <h2 className="text-3xl">Recently verified</h2>
+          <h2 className="text-3xl">Partially verified so far</h2>
           <Link to="/colleges" className="text-sm font-semibold text-primary">All colleges →</Link>
         </div>
         <div className="mt-4">{featured.map((c) => <CollegeRow key={c.slug} c={c} />)}</div>
