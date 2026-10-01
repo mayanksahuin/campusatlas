@@ -1,10 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell, VerificationBadge } from "@/components/site";
-import { getCollege } from "@/lib/colleges";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { collegeQuery } from "@/lib/colleges.functions";
 
 export const Route = createFileRoute("/colleges/$slug")({
-  loader: ({ params }) => {
-    const college = getCollege(params.slug);
+  loader: async ({ context, params }) => {
+    const college = await context.queryClient.ensureQueryData(collegeQuery(params.slug));
     if (!college) throw notFound();
     return { college };
   },
@@ -27,11 +28,13 @@ export const Route = createFileRoute("/colleges/$slug")({
 const Missing = () => <span className="text-muted-foreground">Not yet verified</span>;
 
 function Profile() {
-  const { college: c } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const { data } = useSuspenseQuery(collegeQuery(slug));
+  const c = data!;
   const facts: [string, React.ReactNode][] = [
-    ["Type", c.type], ["Ownership", c.ownership], ["Location", `${c.area}, Jaipur`],
+    ["Type", c.type], ["Ownership", c.ownership], ["Location", c.area ? `${c.area}, Jaipur` : <Missing />],
     ["Established", c.established ?? <Missing />], ["Affiliation", c.affiliation ?? <Missing />],
-    ["Entrance routes", c.entrance?.join(", ") ?? <Missing />], ["Programs", c.programs?.join(", ") ?? <Missing />],
+    ["Entrance routes", (c.entrance.join(", ") || <Missing />)], ["Programs", (c.programs.join(", ") || <Missing />)],
     ["Official website", c.website ? <a href={c.website} target="_blank" rel="noreferrer" className="text-primary underline">{c.website.replace("https://", "")}</a> : <Missing />],
   ];
   return (
@@ -40,7 +43,7 @@ function Profile() {
         <Link to="/colleges" className="eyebrow hover:text-primary">← All colleges</Link>
         <div className="mt-6"><VerificationBadge status={c.verification} /></div>
         <h1 className="mt-4 max-w-4xl text-5xl leading-tight md:text-6xl">{c.name}</h1>
-        {c.aliases && <p className="mt-2 font-mono text-sm text-muted-foreground">also known as {c.aliases.join(", ")}</p>}
+        {c.aliases.length > 0 && <p className="mt-2 font-mono text-sm text-muted-foreground">also known as {c.aliases.join(", ")}</p>}
         {c.summary && <p className="mt-8 max-w-2xl text-xl leading-relaxed">{c.summary}</p>}
         <div className="mt-14 grid gap-12 lg:grid-cols-12">
           <dl className="border-t lg:col-span-8">
@@ -51,6 +54,19 @@ function Profile() {
             ))}
           </dl>
           <aside className="space-y-6 lg:col-span-4">
+            <div className="border p-6">
+              <p className="eyebrow">Sources</p>
+              <ul className="mt-3 space-y-3 text-sm">
+                {c.sources.map((s) => (
+                  <li key={s.id}>
+                    {s.url.startsWith("http") ? <a href={s.url} target="_blank" rel="noreferrer" className="text-primary underline">{s.title ?? s.url}</a> : <span>{s.title}</span>}
+                    <div className="mt-1"><VerificationBadge status={s.verification} /></div>
+                    {s.notes && <p className="mt-1 text-xs text-muted-foreground">{s.notes}</p>}
+                    <p className="text-xs text-muted-foreground">Last verified: {s.lastVerifiedAt ? new Date(s.lastVerifiedAt).toLocaleDateString("en-IN") : "not yet"}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="bg-ink p-6 text-ink-foreground">
               <p className="eyebrow !text-primary">Coming next</p>
               <p className="mt-3 text-sm opacity-80">Clubs, events, hostels, fees and placements will appear here once confirmed from official sources.</p>
