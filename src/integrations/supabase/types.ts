@@ -14,16 +14,743 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      college_achievements: {
+        Row: {
+          college_id: string
+          created_at: string
+          description: string | null
+          id: string
+          last_verified_at: string | null
+          source_id: string | null
+          title: string
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+          year: number | null
+        }
+        Insert: {
+          college_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          source_id?: string | null
+          title: string
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          year?: number | null
+        }
+        Update: {
+          college_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          source_id?: string | null
+          title?: string
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          year?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_achievements_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_achievements_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_aliases: {
+        Row: {
+          alias: string
+          college_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          alias: string
+          college_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          alias?: string
+          college_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_aliases_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_clubs: {
+        Row: {
+          category: string
+          college_id: string
+          created_at: string
+          description: string | null
+          id: string
+          last_verified_at: string | null
+          name: string
+          source_id: string | null
+          updated_at: string
+          url: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          category?: string
+          college_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name: string
+          source_id?: string | null
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          category?: string
+          college_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name?: string
+          source_id?: string | null
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_clubs_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_clubs_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_departments: {
+        Row: {
+          college_id: string
+          created_at: string
+          description: string | null
+          id: string
+          last_verified_at: string | null
+          name: string
+          source_id: string | null
+          updated_at: string
+          url: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          college_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name: string
+          source_id?: string | null
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          college_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name?: string
+          source_id?: string | null
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_departments_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_departments_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_facilities: {
+        Row: {
+          category: string
+          college_id: string
+          created_at: string
+          description: string | null
+          id: string
+          last_verified_at: string | null
+          name: string
+          source_id: string | null
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          category: string
+          college_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name: string
+          source_id?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          category?: string
+          college_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          last_verified_at?: string | null
+          name?: string
+          source_id?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_facilities_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_facilities_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_programs: {
+        Row: {
+          college_id: string
+          created_at: string
+          degree: string
+          department: string | null
+          duration_years: number | null
+          id: string
+          intake: number | null
+          last_verified_at: string | null
+          name: string | null
+          source_id: string | null
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          college_id: string
+          created_at?: string
+          degree: string
+          department?: string | null
+          duration_years?: number | null
+          id?: string
+          intake?: number | null
+          last_verified_at?: string | null
+          name?: string | null
+          source_id?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          college_id?: string
+          created_at?: string
+          degree?: string
+          department?: string | null
+          duration_years?: number | null
+          id?: string
+          intake?: number | null
+          last_verified_at?: string | null
+          name?: string | null
+          source_id?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_programs_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_programs_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_research: {
+        Row: {
+          area: string | null
+          college_id: string
+          created_at: string
+          description: string | null
+          id: string
+          kind: string
+          last_verified_at: string | null
+          source_id: string | null
+          title: string
+          updated_at: string
+          url: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          area?: string | null
+          college_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          kind?: string
+          last_verified_at?: string | null
+          source_id?: string | null
+          title: string
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          area?: string | null
+          college_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          kind?: string
+          last_verified_at?: string | null
+          source_id?: string | null
+          title?: string
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_research_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_research_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_social_links: {
+        Row: {
+          college_id: string
+          created_at: string
+          id: string
+          is_official: boolean
+          last_verified_at: string | null
+          platform: string
+          updated_at: string
+          url: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          college_id: string
+          created_at?: string
+          id?: string
+          is_official?: boolean
+          last_verified_at?: string | null
+          platform: string
+          updated_at?: string
+          url: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          college_id?: string
+          created_at?: string
+          id?: string
+          is_official?: boolean
+          last_verified_at?: string | null
+          platform?: string
+          updated_at?: string
+          url?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_social_links_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_sources: {
+        Row: {
+          accessed_at: string | null
+          college_id: string
+          created_at: string
+          id: string
+          last_verified_at: string | null
+          notes: string | null
+          publisher: string | null
+          source_type: string
+          title: string | null
+          updated_at: string
+          url: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          accessed_at?: string | null
+          college_id: string
+          created_at?: string
+          id?: string
+          last_verified_at?: string | null
+          notes?: string | null
+          publisher?: string | null
+          source_type?: string
+          title?: string | null
+          updated_at?: string
+          url: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          accessed_at?: string | null
+          college_id?: string
+          created_at?: string
+          id?: string
+          last_verified_at?: string | null
+          notes?: string | null
+          publisher?: string | null
+          source_type?: string
+          title?: string | null
+          updated_at?: string
+          url?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_sources_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      college_updates: {
+        Row: {
+          body: string | null
+          college_id: string | null
+          created_at: string
+          id: string
+          last_verified_at: string | null
+          published_at: string | null
+          source_id: string | null
+          title: string
+          updated_at: string
+          url: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          body?: string | null
+          college_id?: string | null
+          created_at?: string
+          id?: string
+          last_verified_at?: string | null
+          published_at?: string | null
+          source_id?: string | null
+          title: string
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          body?: string | null
+          college_id?: string | null
+          created_at?: string
+          id?: string
+          last_verified_at?: string | null
+          published_at?: string | null
+          source_id?: string | null
+          title?: string
+          updated_at?: string
+          url?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_updates_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_updates_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      colleges: {
+        Row: {
+          affiliation: string | null
+          area: string | null
+          city: string
+          created_at: string
+          entrance_routes: string[]
+          established_year: number | null
+          id: string
+          institution_type: string
+          last_verified_at: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string
+          ownership: string
+          search: unknown
+          slug: string
+          state: string
+          summary: string | null
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+          website: string | null
+        }
+        Insert: {
+          affiliation?: string | null
+          area?: string | null
+          city?: string
+          created_at?: string
+          entrance_routes?: string[]
+          established_year?: number | null
+          id?: string
+          institution_type: string
+          last_verified_at?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          ownership?: string
+          search?: unknown
+          slug: string
+          state?: string
+          summary?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          website?: string | null
+        }
+        Update: {
+          affiliation?: string | null
+          area?: string | null
+          city?: string
+          created_at?: string
+          entrance_routes?: string[]
+          established_year?: number | null
+          id?: string
+          institution_type?: string
+          last_verified_at?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          ownership?: string
+          search?: unknown
+          slug?: string
+          state?: string
+          summary?: string | null
+          updated_at?: string
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+          website?: string | null
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          college_id: string | null
+          created_at: string
+          description: string | null
+          ends_at: string | null
+          event_type: string
+          id: string
+          last_verified_at: string | null
+          registration_url: string | null
+          slug: string
+          source_id: string | null
+          starts_at: string | null
+          title: string
+          updated_at: string
+          venue: string | null
+          verification_status: Database["public"]["Enums"]["verification_status"]
+        }
+        Insert: {
+          college_id?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          event_type: string
+          id?: string
+          last_verified_at?: string | null
+          registration_url?: string | null
+          slug: string
+          source_id?: string | null
+          starts_at?: string | null
+          title: string
+          updated_at?: string
+          venue?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Update: {
+          college_id?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          event_type?: string
+          id?: string
+          last_verified_at?: string | null
+          registration_url?: string | null
+          slug?: string
+          source_id?: string | null
+          starts_at?: string | null
+          title?: string
+          updated_at?: string
+          venue?: string | null
+          verification_status?: Database["public"]["Enums"]["verification_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      verification_log: {
+        Row: {
+          entity_id: string
+          entity_table: string
+          id: string
+          notes: string | null
+          source_id: string | null
+          status: Database["public"]["Enums"]["verification_status"]
+          verified_at: string
+        }
+        Insert: {
+          entity_id: string
+          entity_table: string
+          id?: string
+          notes?: string | null
+          source_id?: string | null
+          status: Database["public"]["Enums"]["verification_status"]
+          verified_at?: string
+        }
+        Update: {
+          entity_id?: string
+          entity_table?: string
+          id?: string
+          notes?: string | null
+          source_id?: string | null
+          status?: Database["public"]["Enums"]["verification_status"]
+          verified_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "verification_log_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "college_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_colleges: {
+        Args: { kind?: string; q?: string }
+        Returns: {
+          affiliation: string | null
+          area: string | null
+          city: string
+          created_at: string
+          entrance_routes: string[]
+          established_year: number | null
+          id: string
+          institution_type: string
+          last_verified_at: string | null
+          latitude: number | null
+          longitude: number | null
+          name: string
+          ownership: string
+          search: unknown
+          slug: string
+          state: string
+          summary: string | null
+          updated_at: string
+          verification_status: Database["public"]["Enums"]["verification_status"]
+          website: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "colleges"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
     }
     Enums: {
-      [_ in never]: never
+      verification_status: "verified" | "partial" | "pending" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +877,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      verification_status: ["verified", "partial", "pending", "rejected"],
+    },
   },
 } as const
