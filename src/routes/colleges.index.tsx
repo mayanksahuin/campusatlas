@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { SiteShell, CollegeRow } from "@/components/site";
 import { colleges } from "@/lib/colleges";
 
-type Search = { q?: string; type?: string };
+type Search = { q?: string | undefined; type?: string | undefined };
 
 export const Route = createFileRoute("/colleges/")({
   validateSearch: (s: Record<string, unknown>): Search => ({
