@@ -1,10 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell, VerificationBadge } from "@/components/site";
-import { colleges, getCollege } from "@/lib/colleges";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { collegesQuery } from "@/lib/colleges.functions";
+import type { College } from "@/lib/colleges";
 
 export const Route = createFileRoute("/compare")({
   validateSearch: (s: Record<string, unknown>): { a?: string | undefined } => ({ a: typeof s["a"] === "string" ? s["a"] : undefined }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(collegesQuery()),
   head: () => ({
     meta: [
       { title: "Compare Jaipur Engineering Colleges — CampusAtlas" },
@@ -16,14 +19,17 @@ export const Route = createFileRoute("/compare")({
   component: Compare,
 });
 
-const rows: [string, (c: NonNullable<ReturnType<typeof getCollege>>) => string | undefined][] = [
-  ["Type", (c) => c.type], ["Ownership", (c) => c.ownership], ["Area", (c) => c.area],
-  ["Established", (c) => c.established?.toString()], ["Entrance", (c) => c.entrance?.join(", ")],
-  ["Programs", (c) => c.programs?.join(", ")], ["Website", (c) => c.website?.replace("https://", "")],
+const rows: [string, (c: College) => string | undefined][] = [
+  ["Type", (c) => c.type], ["Ownership", (c) => c.ownership], ["Area", (c) => c.area ?? undefined],
+  ["Established", (c) => c.established?.toString()], ["Entrance", (c) => c.entrance.join(", ") || undefined],
+  ["Programs", (c) => c.programs.join(", ") || undefined], ["Website", (c) => c.website?.replace("https://", "")],
+  ["Status", (c) => c.verification],
 ];
 
 function Compare() {
   const { a } = Route.useSearch();
+  const { data: colleges } = useSuspenseQuery(collegesQuery());
+  const getCollege = (s: string) => colleges.find((c) => c.slug === s);
   const [sel, setSel] = useState<string[]>([a ?? "mnit-jaipur", "lnmiit", ""]);
   const picked = sel.map((s) => getCollege(s));
   return (
