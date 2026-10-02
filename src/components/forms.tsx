@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 
-export function Field({ label, hint, ...props }: { label: string; hint?: string } & InputHTMLAttributes<HTMLInputElement>) {
+export function Field({ label, hint, ...props }: { label: string; hint?: string | undefined } & InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className="block">
       <span className="eyebrow">{label}</span>
