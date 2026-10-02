@@ -10,7 +10,7 @@ import { friendlyAuthError } from "@/lib/auth";
 type Mode = "login" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ mode: (["login", "signup", "forgot"].includes(s.mode as string) ? s.mode : "login") as Mode }),
+  validateSearch: (s: Record<string, unknown>) => ({ mode: (["login", "signup", "forgot"].includes(s["mode"] as string) ? s["mode"] : "login") as Mode }),
   head: () => ({ meta: [
     { title: "Log in or sign up — CampusAtlas" },
     { name: "description", content: "Create a free CampusAtlas account for students and teachers to save colleges and events." },
@@ -51,21 +51,21 @@ function AuthPage() {
     setBusy(true);
     try {
       if (mode === "login") {
-        if (!f.email || !f.password) throw new Error("Enter your email and password.");
-        const { error } = await supabase.auth.signInWithPassword({ email: f.email.trim(), password: f.password });
+        if (!f["email"] || !f["password"]) throw new Error("Enter your email and password.");
+        const { error } = await supabase.auth.signInWithPassword({ email: f["email"].trim(), password: f["password"] });
         if (error) throw error;
         navigate({ to: "/dashboard", replace: true });
       } else if (mode === "signup") {
         const parsed = signupSchema.safeParse({ ...f, user_type: userType });
-        if (!parsed.success) throw new Error(parsed.error.issues[0].message);
+        if (!parsed.success) throw new Error((parsed.error.issues[0]?.message ?? "Invalid input"));
         const { email, password, ...meta } = parsed.data;
         const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: window.location.origin + "/dashboard", data: meta } });
         if (error) throw error;
         if (data.session) navigate({ to: "/dashboard", replace: true });
         else setOk(`Almost done — we sent a confirmation link to ${email}. Open it to activate your account.`);
       } else {
-        const email = z.string().trim().email("Enter a valid email").safeParse(f.email);
-        if (!email.success) throw new Error(email.error.issues[0].message);
+        const email = z.string().trim().email("Enter a valid email").safeParse(f["email"]);
+        if (!email.success) throw new Error((email.error.issues[0]?.message ?? "Invalid email"));
         const { error } = await supabase.auth.resetPasswordForEmail(email.data, { redirectTo: window.location.origin + "/reset-password" });
         if (error) throw error;
         setOk("If an account exists for that email, a reset link is on its way.");

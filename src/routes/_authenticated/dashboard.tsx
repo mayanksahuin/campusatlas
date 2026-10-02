@@ -73,7 +73,7 @@ function Dashboard() {
   );
 }
 
-function Stat({ label, value }: { label: string; value?: string | number }) {
+function Stat({ label, value }: { label: string; value?: string | number | undefined }) {
   return <div className="bg-background p-6"><p className="eyebrow">{label}</p><p className="mt-3 font-display text-4xl">{value ?? "…"}</p></div>;
 }
 function Row({ k, v }: { k: string; v: string }) {

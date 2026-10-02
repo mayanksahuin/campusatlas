@@ -36,7 +36,7 @@ function ProfilePage() {
     e.preventDefault();
     if (!p) return;
     const parsed = schema.safeParse(Object.fromEntries(new FormData(e.currentTarget)));
-    if (!parsed.success) return setMsg({ tone: "error", text: parsed.error.issues[0].message });
+    if (!parsed.success) return setMsg({ tone: "error", text: (parsed.error.issues[0]?.message ?? "Invalid input") });
     setBusy(true);
     const { error } = await supabase.from("profiles").update({
       full_name: parsed.data.full_name, user_type: userType,
