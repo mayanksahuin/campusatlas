@@ -674,6 +674,153 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          read_at: string | null
+          title: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          course: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          institution: string | null
+          updated_at: string
+          user_type: string
+        }
+        Insert: {
+          course?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id: string
+          institution?: string | null
+          updated_at?: string
+          user_type?: string
+        }
+        Update: {
+          course?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          institution?: string | null
+          updated_at?: string
+          user_type?: string
+        }
+        Relationships: []
+      }
+      recently_viewed_colleges: {
+        Row: {
+          college_id: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          college_id: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          college_id?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recently_viewed_colleges_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_colleges: {
+        Row: {
+          college_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          college_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          college_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_colleges_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      saved_events: {
+        Row: {
+          created_at: string
+          event_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_events_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       verification_log: {
         Row: {
           entity_id: string
