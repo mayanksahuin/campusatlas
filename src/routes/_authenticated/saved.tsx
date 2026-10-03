@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site";
 import { savedCollegesQuery } from "@/lib/account";
 
 export const Route = createFileRoute("/_authenticated/saved")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Saved items — CampusAtlas" },
     { name: "description", content: "Colleges and events you saved on CampusAtlas." },

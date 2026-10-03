@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { profileQuery } from "@/lib/account";
 
 export const Route = createFileRoute("/_authenticated/profile")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Your profile — CampusAtlas" },
     { name: "description", content: "Edit your CampusAtlas profile." },
