@@ -41,7 +41,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             const { data, error } = await supabase
               .from("colleges")
               .select("slug")
-              .neq("verification", "rejected")
+              .neq("verification_status", "rejected")
               .order("id")
               .range(offset, offset + pageSize - 1);
             if (error) throw error;
