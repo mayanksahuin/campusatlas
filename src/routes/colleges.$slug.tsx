@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { collegeQuery } from "@/lib/colleges.functions";
 
 export const Route = createFileRoute("/colleges/$slug")({
+  staticData: { sitemap: true },
   loader: async ({ context, params }) => {
     const college = await context.queryClient.ensureQueryData(collegeQuery(params.slug));
     if (!college) throw notFound();

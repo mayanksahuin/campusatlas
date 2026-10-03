@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site";
 import { accountStatsQuery, profileQuery, recentQuery } from "@/lib/account";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Your dashboard — CampusAtlas" },
     { name: "description", content: "Your CampusAtlas dashboard: profile, saved colleges and events." },

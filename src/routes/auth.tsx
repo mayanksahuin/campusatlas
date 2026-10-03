@@ -10,12 +10,14 @@ import { friendlyAuthError } from "@/lib/auth";
 type Mode = "login" | "signup" | "forgot";
 
 export const Route = createFileRoute("/auth")({
+  staticData: { sitemap: false },
   validateSearch: (s: Record<string, unknown>) => ({ mode: (["login", "signup", "forgot"].includes(s["mode"] as string) ? s["mode"] : "login") as Mode }),
   head: () => ({ meta: [
     { title: "Log in or sign up — CampusAtlas" },
     { name: "description", content: "Create a free CampusAtlas account for students and teachers to save colleges and events." },
     { property: "og:title", content: "Log in or sign up — CampusAtlas" },
     { property: "og:description", content: "Create a free CampusAtlas account for students and teachers." },
+    { name: "robots", content: "noindex" },
   ] }),
   component: AuthPage,
 });

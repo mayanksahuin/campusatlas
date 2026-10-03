@@ -6,6 +6,7 @@ import { collegesQuery } from "@/lib/colleges.functions";
 import type { College } from "@/lib/colleges";
 
 export const Route = createFileRoute("/compare")({
+  staticData: { sitemap: true },
   validateSearch: (s: Record<string, unknown>): { a?: string | undefined } => ({ a: typeof s["a"] === "string" ? s["a"] : undefined }),
   loader: ({ context }) => context.queryClient.ensureQueryData(collegesQuery()),
   head: () => ({

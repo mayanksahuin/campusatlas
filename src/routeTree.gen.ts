@@ -16,6 +16,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedSavedRouteImport } from './routes/_authenticated/saved'
@@ -56,6 +57,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/events': typeof EventsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/events': typeof EventsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/saved': typeof AuthenticatedSavedRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/events': typeof EventsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/saved': typeof AuthenticatedSavedRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/events'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/dashboard'
     | '/profile'
     | '/saved'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/events'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/dashboard'
     | '/profile'
     | '/saved'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/events'
     | '/reset-password'
+    | '/sitemap.xml'
     | '/_authenticated/dashboard'
     | '/_authenticated/profile'
     | '/_authenticated/saved'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   EventsRoute: typeof EventsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   CollegesSlugRoute: typeof CollegesSlugRoute
   CollegesIndexRoute: typeof CollegesIndexRoute
 }
@@ -227,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/dashboard': {
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   EventsRoute: EventsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   CollegesSlugRoute: CollegesSlugRoute,
   CollegesIndexRoute: CollegesIndexRoute,
 }

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site";
 
 export const Route = createFileRoute("/events")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "Hackathons, Fests & Workshops in Jaipur — CampusAtlas" },

@@ -6,6 +6,7 @@ import { SiteShell, CollegeRow } from "@/components/site";
 import { collegesQuery } from "@/lib/colleges.functions";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   loader: ({ context }) => context.queryClient.ensureQueryData(collegesQuery()),
   head: () => ({
     meta: [
